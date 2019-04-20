@@ -5,18 +5,34 @@
   
 
   
-  <title>“云雾中的墨先生”</title>
+  <title>原理就是这么简单- Softmax | “云雾中的墨先生”</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Makes more time">
-<meta property="og:type" content="website">
-<meta property="og:title" content="“云雾中的墨先生”">
-<meta property="og:url" content="http://clouder.com/index.html">
+  <meta name="description" content="一般的神经网络课程在讲述BP算法的时候都会用sigmoid 函数来作为最后一层的激活函数来实现二分类，这是因为其sigmoid求导的便利，非常适合用来讲课（吴大大的课也是如此）。 但是对于多分类的问题很多小伙伴表示喜欢直接调库。其实了解softmax反向传播原理，或者可以自己手推一遍softmax的BP算法，才能彰显一个AI从业人员的内功。 此文会通过一个案例为大家一步一步讲解softmax 反向">
+<meta name="keywords" content="Deep learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="原理就是这么简单- Softmax">
+<meta property="og:url" content="http://clouder.com/2019/04/20/Softmax/index.html">
 <meta property="og:site_name" content="“云雾中的墨先生”">
-<meta property="og:description" content="Makes more time">
+<meta property="og:description" content="一般的神经网络课程在讲述BP算法的时候都会用sigmoid 函数来作为最后一层的激活函数来实现二分类，这是因为其sigmoid求导的便利，非常适合用来讲课（吴大大的课也是如此）。 但是对于多分类的问题很多小伙伴表示喜欢直接调库。其实了解softmax反向传播原理，或者可以自己手推一遍softmax的BP算法，才能彰显一个AI从业人员的内功。 此文会通过一个案例为大家一步一步讲解softmax 反向">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4861716-6bcc60635cf2a0a2.png!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4861716-08721672a3b926fc.png!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4861716-84c5124b7f76696b.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4861716-eb884a1c20874926.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4861716-1f3e71770ee5328d.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4861716-a7b9b2ac32c0c3d3.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4861716-150f68cad25cc132.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4861716-693f8cefe7ff1a5f.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4861716-65b08d5148fbd32b.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4861716-bf882cd01ce89473.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4861716-4da9affc4120bf84.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4861716-e9e127c4f8f2dd37.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4861716-b2511bc623898e0f.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-04-20T23:53:06.985Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="“云雾中的墨先生”">
-<meta name="twitter:description" content="Makes more time">
+<meta name="twitter:title" content="原理就是这么简单- Softmax">
+<meta name="twitter:description" content="一般的神经网络课程在讲述BP算法的时候都会用sigmoid 函数来作为最后一层的激活函数来实现二分类，这是因为其sigmoid求导的便利，非常适合用来讲课（吴大大的课也是如此）。 但是对于多分类的问题很多小伙伴表示喜欢直接调库。其实了解softmax反向传播原理，或者可以自己手推一遍softmax的BP算法，才能彰显一个AI从业人员的内功。 此文会通过一个案例为大家一步一步讲解softmax 反向">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4861716-6bcc60635cf2a0a2.png!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
     <link rel="alternate" href="/atom.xml" title="“云雾中的墨先生”" type="application/atom+xml">
   
@@ -67,9 +83,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-Softmax" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Softmax" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/04/20/Softmax/" class="article-date">
   <time datetime="2019-04-20T15:29:39.000Z" itemprop="datePublished">2019-04-20</time>
@@ -82,8 +96,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/20/Softmax/">原理就是这么简单- Softmax</a>
+    <h1 class="article-title" itemprop="name">
+      原理就是这么简单- Softmax
     </h1>
   
 
@@ -160,11 +174,9 @@
     </footer>
   </div>
   
-</article>
-
-
+    
   
-
+</article>
 
 </section>
         
