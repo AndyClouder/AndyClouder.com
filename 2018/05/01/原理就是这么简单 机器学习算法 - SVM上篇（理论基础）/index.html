@@ -93,7 +93,7 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-b5b052b980c41ab3.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-8e92fb19958aff91.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-0af52414b32af9ba.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-04-21T00:09:38.168Z">
+<meta property="og:updated_time" content="2019-04-21T02:16:48.731Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="原理就是这么简单 机器学习算法 - SVM上篇（理论基础）">
 <meta name="twitter:description" content="在学习SVM的时候，很多小伙伴总是觉得这个高大上的算法不好理解，学习的时候还有点印象，但是时间一长，又忘记了。随着学习进一步的理解我发现数学理论是理解SVM必不可少的要素。  那需要什么数学理论才能将SVM算法理解的深刻到位呢？   答案: 就是这些凸优化的知识（拉格朗日函数，对偶函数，KKT条件）  很多小伙伴说看见数学公式和这些抽象的概念推导就感觉到头痛。 ###如果你是这样的小伙伴那这篇文章">
@@ -191,7 +191,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
             
             Home
           </a>
@@ -199,9 +199,9 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
+          <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
             
             About
           </a>
@@ -209,21 +209,21 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
+          <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
             
             Tags
           </a>
         </li>
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
             
-            Archives
+            Categories
           </a>
         </li>
       
@@ -351,7 +351,7 @@
 <p>fi(x) 为不等式约束 就是上面的h1(x)<br>vi(x) 为等式约束 就是上面的h2(x)</p>
 <p><em>入</em> 和 v 被称为<em>对偶变量</em>（只是个名字没什么大不了）</p>
 <ul>
-<li><p>其中 <em>入</em>&gt;=0， 这个需要好好理解一下， 因为fi(x) 需要&lt;=0 所以如果当fi(x)不满足约束条件的时候，也就是fi(x)&gt;0时 <em>入</em> 要进一步惩罚使得这一项成为一个更大的数 所以 <em>入</em>i fi(x) 要保证和 fi(x) 保证同号。<br>从而得到  <em>入</em>i * fi(x) &lt;= 0 </p>
+<li><p>其中 <em>入</em>&gt;=0， 这个需要好好理解一下， 因为fi(x) 需要&lt;=0 所以如果当fi(x)不满足约束条件的时候，也就是fi(x)&gt;0时 <em>入</em> 要进一步惩罚使得这一项成为一个更大的数 所以 <em>入</em>i fi(x) 要保证和 fi(x) 保证同号。<br>从而得到  <em>入</em>i * fi(x) &lt;= 0</p>
 </li>
 <li><p>其中 hi(x)= 0， 因为是等式约束的部分，所以都是等于0的<br>所以 vi * hi(x) = 0  </p>
 </li>
@@ -362,7 +362,7 @@
 <h4 id="min-max-L-x-入，v"><a href="#min-max-L-x-入，v" class="headerlink" title="min max(L(x, 入，v))"></a>min max(L(x, <em>入</em>，v))</h4><p>那变型成这样约束为0的式子之后该怎么办呢？<br>接下来就是我们要介绍的对偶理论可以很好的解决这个问题。</p>
 <h1 id="对偶"><a href="#对偶" class="headerlink" title="对偶"></a>对偶</h1><p>首先我先给出对偶函数的定义：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-b5b052b980c41ab3.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.PNG"></p>
 <p>我们可以看到 对偶函数只不过就是把拉格朗日函数以（<em>入</em>，v）为变量，取得使其最小的函数嘛，<strong>请注意这时候变量不是x哦！</strong></p>
-<p>我们再来仔细看看这个函数，因为此时变量是（<em>入</em>，v），<br>我们也可以有如下定义 </p>
+<p>我们再来仔细看看这个函数，因为此时变量是（<em>入</em>，v），<br>我们也可以有如下定义</p>
 <ul>
 <li>Z = [<em>入</em>，v] ( 变量 )</li>
 <li>F = [f(x),v(x)] （系数）</li>
@@ -378,9 +378,9 @@
 <h4 id="min-max-L-x-入，v-1"><a href="#min-max-L-x-入，v-1" class="headerlink" title="min max(L(x, 入，v))"></a>min max(L(x, <em>入</em>，v))</h4><p>其中max(L(x, <em>入</em>，v))  = f0(x). 所以拉格朗日函数的最优解必然是<br>Optimal = min f0(x).</p>
 <p>刚才我们又得到对偶函数<br>其中:</p>
 <ul>
-<li><em>入</em>i * fi(x) &lt;= 0 </li>
+<li><em>入</em>i * fi(x) &lt;= 0</li>
 <li>hi(x)= 0</li>
-<li>vi * hi(x) = 0 </li>
+<li>vi * hi(x) = 0</li>
 </ul>
 <p>那么 max g(<em>入</em>，v) &lt;= f0(x)</p>
 <blockquote>
@@ -393,7 +393,7 @@
 <h1 id="KKT-条件"><a href="#KKT-条件" class="headerlink" title="KKT 条件"></a>KKT 条件</h1><p>我们现在已经知道了 KKT 条件其实就是得到强对偶的充分必要条件，那它具体都是些什么条件呢？</p>
 <p>我们重新看一下刚才的对偶函数 g(<em>入</em>，v)<br><img src="https://upload-images.jianshu.io/upload_images/4861716-0af52414b32af9ba.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.PNG"><br>其中:</p>
 <ul>
-<li><em>入</em>i * fi(x) &lt;= 0 </li>
+<li><em>入</em>i * fi(x) &lt;= 0</li>
 <li>hi(x)= 0</li>
 <li>vi * hi(x) = 0</li>
 </ul>
@@ -531,7 +531,7 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/">
+                <a href="/archives">
               
                   <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">posts</span>
@@ -664,6 +664,8 @@
   
 
 
+  
+
 
 
 
@@ -702,6 +704,11 @@
   
   
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
