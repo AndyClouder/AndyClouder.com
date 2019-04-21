@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="Date: 11/22/2018 不做调包侠！之前我在某公开课上讲述了“不调包，仅用Python如何四步搭建神经网络”。我发现各位小伙伴们对原理的渴求非常强烈！说明大家在“不做调包侠”上非常重视，我也非常开心。这篇文章也是“原理就是这么简单”的系列文章之一，希望通过文章的方式将原理描述的更加丰满！帮助更多想学习深度学习的朋友！ 对比Sklearn中的线性回归学过机器学习的朋友都知道Sklearn是">
+<meta name="description" content="不做调包侠！之前我在某公开课上讲述了“不调包，仅用Python如何四步搭建神经网络”。我发现各位小伙伴们对原理的渴求非常强烈！说明大家在“不做调包侠”上非常重视，我也非常开心。这篇文章也是“原理就是这么简单”的系列文章之一，希望通过文章的方式将原理描述的更加丰满！帮助更多想学习深度学习的朋友！ 对比Sklearn中的线性回归学过机器学习的朋友都知道Sklearn是非常重要的工具包，很多复杂的机器学">
 <meta name="keywords" content="Deep Learning,Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="原理就是这么简单 用Python搭建神经网络">
 <meta property="og:url" content="http://clouder.com/2018/11/21/原理就是这么简单 用Python搭建神经网络/index.html">
 <meta property="og:site_name" content="云雾中的墨先生">
-<meta property="og:description" content="Date: 11/22/2018 不做调包侠！之前我在某公开课上讲述了“不调包，仅用Python如何四步搭建神经网络”。我发现各位小伙伴们对原理的渴求非常强烈！说明大家在“不做调包侠”上非常重视，我也非常开心。这篇文章也是“原理就是这么简单”的系列文章之一，希望通过文章的方式将原理描述的更加丰满！帮助更多想学习深度学习的朋友！ 对比Sklearn中的线性回归学过机器学习的朋友都知道Sklearn是">
+<meta property="og:description" content="不做调包侠！之前我在某公开课上讲述了“不调包，仅用Python如何四步搭建神经网络”。我发现各位小伙伴们对原理的渴求非常强烈！说明大家在“不做调包侠”上非常重视，我也非常开心。这篇文章也是“原理就是这么简单”的系列文章之一，希望通过文章的方式将原理描述的更加丰满！帮助更多想学习深度学习的朋友！ 对比Sklearn中的线性回归学过机器学习的朋友都知道Sklearn是非常重要的工具包，很多复杂的机器学">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-2a136d62894376ba.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-392eecf9f4824882.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -94,10 +94,10 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-28dd37db81d80296.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-8662adb9ed0bbf10.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-df91f1afe62170ac.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-04-21T00:11:57.738Z">
+<meta property="og:updated_time" content="2019-04-21T08:15:17.933Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="原理就是这么简单 用Python搭建神经网络">
-<meta name="twitter:description" content="Date: 11/22/2018 不做调包侠！之前我在某公开课上讲述了“不调包，仅用Python如何四步搭建神经网络”。我发现各位小伙伴们对原理的渴求非常强烈！说明大家在“不做调包侠”上非常重视，我也非常开心。这篇文章也是“原理就是这么简单”的系列文章之一，希望通过文章的方式将原理描述的更加丰满！帮助更多想学习深度学习的朋友！ 对比Sklearn中的线性回归学过机器学习的朋友都知道Sklearn是">
+<meta name="twitter:description" content="不做调包侠！之前我在某公开课上讲述了“不调包，仅用Python如何四步搭建神经网络”。我发现各位小伙伴们对原理的渴求非常强烈！说明大家在“不做调包侠”上非常重视，我也非常开心。这篇文章也是“原理就是这么简单”的系列文章之一，希望通过文章的方式将原理描述的更加丰满！帮助更多想学习深度学习的朋友！ 对比Sklearn中的线性回归学过机器学习的朋友都知道Sklearn是非常重要的工具包，很多复杂的机器学">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/4861716-2a136d62894376ba.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -328,9 +328,8 @@
       
 
       
-        <p>Date: 11/22/2018</p>
-<h2 id="不做调包侠！"><a href="#不做调包侠！" class="headerlink" title="不做调包侠！"></a>不做调包侠！</h2><p>之前我在某公开课上讲述了“不调包，仅用Python如何四步搭建神经网络”。<br>我发现各位小伙伴们对原理的渴求非常强烈！说明大家在“不做调包侠”上非常重视，我也非常开心。<br>这篇文章也是“原理就是这么简单”的系列文章之一，希望通过文章的方式将原理描述的更加丰满！帮助更多想学习深度学习的朋友！</p>
-<h2 id="对比Sklearn中的线性回归"><a href="#对比Sklearn中的线性回归" class="headerlink" title="对比Sklearn中的线性回归"></a>对比Sklearn中的线性回归</h2><p>学过机器学习的朋友都知道Sklearn是非常重要的工具包，很多复杂的机器学习模型也许用sklearn几行代码就能搞定，<br>举个例子比如线性回归，我们可以构建如下的线性回归对象训练和预测一气呵成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">linreg = LinearRegression()</span><br><span class="line">linreg.fit(train_features,train_targets) </span><br><span class="line">y_pred = linreg.predict(val_features)</span><br></pre></td></tr></table></figure></p>
+        <h2 id="不做调包侠！"><a href="#不做调包侠！" class="headerlink" title="不做调包侠！"></a>不做调包侠！</h2><p>之前我在某公开课上讲述了“不调包，仅用Python如何四步搭建神经网络”。<br>我发现各位小伙伴们对原理的渴求非常强烈！说明大家在“不做调包侠”上非常重视，我也非常开心。<br>这篇文章也是“原理就是这么简单”的系列文章之一，希望通过文章的方式将原理描述的更加丰满！帮助更多想学习深度学习的朋友！</p>
+<h2 id="对比Sklearn中的线性回归"><a href="#对比Sklearn中的线性回归" class="headerlink" title="对比Sklearn中的线性回归"></a>对比Sklearn中的线性回归</h2><p>学过机器学习的朋友都知道Sklearn是非常重要的工具包，很多复杂的机器学习模型也许用sklearn几行代码就能搞定，<br>举个例子比如线性回归，我们可以构建如下的线性回归对象训练和预测一气呵成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">linreg = LinearRegression()</span><br><span class="line">linreg.fit(train_features,train_targets)</span><br><span class="line">y_pred = linreg.predict(val_features)</span><br></pre></td></tr></table></figure></p>
 <p>发现使用非常简单，仅仅三行代码就能得到线性回归的结果（<strong>y_pred</strong>）<br>如果使用的案例是波士顿房价的数据集，那相应可以得到如下的预测结果：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-2a136d62894376ba.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Boston_Housing_predict.PNG"></p>
 <p>预测结果还不错。</p>
 <p>那如何构建一个类似Skleran.LinearRegression 的神经网络工具包呢？<br>接下来我就要将数学原理转换为代码。</p>
@@ -341,7 +340,7 @@
 <li>Hidden Layer</li>
 <li>Output Layer</li>
 </ul>
-<p>这个是这个网络的基本结构，在进行下面的讲解之前需要在这里<strong>声明</strong>一下， </p>
+<p>这个是这个网络的基本结构，在进行下面的讲解之前需要在这里<strong>声明</strong>一下，</p>
 <blockquote>
 <p>既然是Layer 层 , 都会有这个层本身输入和输出，就好比一个净水过滤器，传进去的是脏水，传出来的是净水，那么神经网络的各个层也有这个性质。</p>
 </blockquote>
@@ -406,7 +405,7 @@
     self.hidden_output_weight = np.random.randn(self.hidden_units,self.output_units)
 
 def __forward__(self, X):
-    &apos;&apos;&apos; forward pass through the neural network with X 
+    &apos;&apos;&apos; forward pass through the neural network with X
 
         Arguments
         ---------
@@ -415,8 +414,8 @@ def __forward__(self, X):
 
         Returns
         -------
-        hidden_outputs: 1D array 
-        final_outputs: 1D array 
+        hidden_outputs: 1D array
+        final_outputs: 1D array
 
     &apos;&apos;&apos;
     hidden_inputs = np.dot(X,self.input_hidden_weight)
@@ -430,7 +429,7 @@ def __forward__(self, X):
     return hidden_outputs,final_outputs
 
 def __backward__(self, y, hidden_outputs, final_outputs):
-    &apos;&apos;&apos; backward pass through the neural network with X 
+    &apos;&apos;&apos; backward pass through the neural network with X
 
         Arguments
         ---------
@@ -439,8 +438,8 @@ def __backward__(self, y, hidden_outputs, final_outputs):
 
         Returns
         -------
-        hidden_input_error_term: 1D array 
-        final_input_error_term: 1D array 
+        hidden_input_error_term: 1D array
+        final_input_error_term: 1D array
 
     &apos;&apos;&apos;
     final_output_error = y-final_outputs
@@ -490,7 +489,7 @@ def predict(self, X):
 
         Returns
         -------
-        outputs: 1D array 
+        outputs: 1D array
         predicted values
     &apos;&apos;&apos;
     hidden_outputs, final_outputs = self.__forward__(X)
@@ -630,10 +629,10 @@ def predict(self, X):
               
               
               <div class="site-state-item site-state-tags">
-                
+                <a href="/tags/index.html">
                   <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">tags</span>
-                
+                </a>
               </div>
             
 
