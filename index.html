@@ -1,255 +1,1039 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
+
+
 
   
-  <title>“云雾中的墨先生”</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Makes more time">
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="AndyClouder">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Makes more time">
 <meta property="og:type" content="website">
-<meta property="og:title" content="“云雾中的墨先生”">
+<meta property="og:title" content="云雾中的墨先生">
 <meta property="og:url" content="http://clouder.com/index.html">
-<meta property="og:site_name" content="“云雾中的墨先生”">
+<meta property="og:site_name" content="云雾中的墨先生">
 <meta property="og:description" content="Makes more time">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="“云雾中的墨先生”">
+<meta name="twitter:title" content="云雾中的墨先生">
 <meta name="twitter:description" content="Makes more time">
-  
-    <link rel="alternate" href="/atom.xml" title="“云雾中的墨先生”" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">“云雾中的墨先生”</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">只想告诉你最简单的原理</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://clouder.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-Softmax" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/20/Softmax/" class="article-date">
-  <time datetime="2019-04-20T15:29:39.000Z" itemprop="datePublished">2019-04-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/20/Softmax/">原理就是这么简单- Softmax</a>
-    </h1>
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://clouder.com/">
+
+
+
+
+
+  <title>云雾中的墨先生</title>
   
 
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">云雾中的墨先生</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">只想告诉你最简单的原理</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://clouder.com/2018/11/21/原理就是这么简单 用Python搭建神经网络/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="AndyClouder">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="云雾中的墨先生">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/21/原理就是这么简单 用Python搭建神经网络/" itemprop="url">原理就是这么简单 用Python搭建神经网络</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-21T21:59:59+08:00">
+                2018-11-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一般的神经网络课程在讲述BP算法的时候都会用sigmoid 函数来作为最后一层的激活函数来实现二分类，这是因为其sigmoid求导的便利，非常适合用来讲课（吴大大的课也是如此）。</p>
-<p>但是对于多分类的问题很多小伙伴表示喜欢直接调库。其实了解softmax反向传播原理，或者可以自己手推一遍softmax的BP算法，才能彰显一个AI从业人员的内功。</p>
-<p>此文会通过一个案例为大家一步一步讲解softmax 反向传播的多个知识点，只要仔细看完此文你会对整个流程豁然开朗。</p>
-<p>现有如下的分类问题，可以通过动物的4个特征来区分此动物到底是什么种类（猫，狗，人 3个类别）</p>
-<p>我们可以建立如下NN模型来解决这个问题：</p>
-<p>﻿<img src="http://upload-images.jianshu.io/upload_images/4861716-6bcc60635cf2a0a2.png!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"> ﻿</p>
-<p>在开始讲解之前，首先定义一下此文的统一符号命名,(很重要)</p>
-<p>红色的是Input 简写为</p>
-<p>蓝色的是Output 简写为 O</p>
-<p>红色和蓝色之间的是权重矩阵 简写为 W</p>
-<p>绿色的是Output经过Softmax之后的结果 简写为 yhat</p>
-<p><strong>1 、正向传播：</strong></p>
-<p>O = X W</p>
-<p>yhat = Softmax(O)</p>
-<p>@﻿<img src="http://upload-images.jianshu.io/upload_images/4861716-08721672a3b926fc.png!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"> ﻿此时softmax 有三个神经元输出 m = 3</p>
-<p><em>重要</em>：</p>
-<p>X (Shape 为（1,4）的向量)</p>
-<p>W （Shape为（4,3）的矩阵）</p>
-<p>yhat （Shape 为（1,3）的向量）</p>
-<p><strong>2、反向传播</strong></p>
-<p><strong>1) 求损失</strong></p>
-<p>因为是分类问题,我们采用交叉熵作为 loss function（关于为什么交叉熵可以作为损失函数我会在后期写一篇文章进行介绍，敬请期待）, 如下：</p>
-<p>﻿<img src="http://upload-images.jianshu.io/upload_images/4861716-84c5124b7f76696b.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"> ﻿</p>
-<p><strong>2) 求梯度</strong></p>
-<p>我先给出梯度公式也就是项目中的error-term :</p>
-<p><strong>−<em>x</em>⋅(<em>yhat</em>−<em>y)</em> </strong></p>
-<p>想必各位想知道这个公式到底怎么推导得到的呢？</p>
-<p>接下来我会讲解此文的重点</p>
-<p><em>重要</em> 求权重的梯度需要运用<strong>链式求导法则</strong>，如下：</p>
-<p>﻿<img src="http://upload-images.jianshu.io/upload_images/4861716-eb884a1c20874926.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"> ﻿</p>
-<p>我们来分别计算后面的三项：</p>
-<p><strong><em>第一项：</em></strong></p>
-<p>﻿<img src="http://upload-images.jianshu.io/upload_images/4861716-1f3e71770ee5328d.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"> ﻿</p>
-<p><strong><em>第二项：</em></strong></p>
-<p>稍微有点复杂。</p>
-<p>为什么yhat下标为i 而O下标为j 呢？</p>
-<p>这是由于softmax 函数的分母有多个输出，但是针对yhati 需要计算所有的softmax</p>
-<p>由于softmax有多个输出，所以需要考虑 i = j 与 i != j 两种情形。</p>
-<p>当 i != j 时：</p>
-<p>﻿<img src="http://upload-images.jianshu.io/upload_images/4861716-a7b9b2ac32c0c3d3.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"> ﻿</p>
-<p>所以可得结果为： ﻿<img src="http://upload-images.jianshu.io/upload_images/4861716-150f68cad25cc132.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"> ﻿</p>
-<p>当 i = j 时：</p>
-<p>将 j 替换为 i如下</p>
-<p>﻿<img src="http://upload-images.jianshu.io/upload_images/4861716-693f8cefe7ff1a5f.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"> ﻿</p>
-<p>所以可得 结果为：﻿<img src="http://upload-images.jianshu.io/upload_images/4861716-65b08d5148fbd32b.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"> ﻿</p>
-<p><strong><em>第三项：</em></strong></p>
-<p>﻿<img src="http://upload-images.jianshu.io/upload_images/4861716-bf882cd01ce89473.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"> ﻿</p>
-<p>第三项非常简单，我们先来算前两项</p>
-<p>﻿<img src="http://upload-images.jianshu.io/upload_images/4861716-4da9affc4120bf84.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"> ﻿</p>
-<p>到这里别忘了 我们经过softmax 的输出只有一个类别也就是 yi = 1, 其他的都等于0</p>
-<p>所以前两项的结果为：﻿<img src="http://upload-images.jianshu.io/upload_images/4861716-e9e127c4f8f2dd37.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"> ﻿</p>
-<p><strong><em>最终我们就得到了结果：</em></strong></p>
-<p>﻿<img src="http://upload-images.jianshu.io/upload_images/4861716-b2511bc623898e0f.PNG!thumbnail?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"> ﻿</p>
-<p>但是Error - term 为 <strong>−<em>x</em>⋅(<em>yhat</em>−<em>y)</em> </strong></p>
-<p>这里为什么有个负号？</p>
-<p>是因为模型应该朝着负梯度的方向优化，所以加了一个负号。</p>
-<p>到此softmax 的正向与反向传播都讲清楚了，欢迎支持 《原理就是这么简单系列》</p>
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          Date: 11/22/2018
+不做调包侠！之前我在某公开课上讲述了“不调包，仅用Python如何四步搭建神经网络”。我发现各位小伙伴们对原理的渴求非常强烈！说明大家在“不做调包侠”上非常重视，我也非常开心。这篇文章也是“原理就是这么简单”的系列文章之一，希望通过文章的方式将原理描述的更加丰满！帮
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/21/原理就是这么简单 用Python搭建神经网络/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://clouder.com/2019/04/20/Softmax/" data-id="cjuq5sn770000v4vijem9ey2d" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Deep-learning/">Deep learning</a></li></ul>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
 
+  
+  
+  
 
-</section>
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://clouder.com/2018/08/20/原理就是这么简单 Softmax 分类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="AndyClouder">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="云雾中的墨先生">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/">Deep learning</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
         
-          <li>
-            <a href="/2019/04/20/Softmax/">原理就是这么简单- Softmax</a>
-          </li>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/20/原理就是这么简单 Softmax 分类/" itemprop="url">原理就是这么简单- Softmax</a></h1>
         
-      </ul>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-20T23:29:39+08:00">
+                2018-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          一般的神经网络课程在讲述BP算法的时候都会用sigmoid 函数来作为最后一层的激活函数来实现二分类，这是因为其sigmoid求导的便利，非常适合用来讲课（吴大大的课也是如此）。
+但是对于多分类的问题很多小伙伴表示喜欢直接调库。其实了解softmax反向传播原理，或者可以自己手推一遍softmax的
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/20/原理就是这么简单 Softmax 分类/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://clouder.com/2018/06/04/原理就是这么简单 机器学习算法 - SVM中篇（算法解析））/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="AndyClouder">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="云雾中的墨先生">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/04/原理就是这么简单 机器学习算法 - SVM中篇（算法解析））/" itemprop="url">原理就是这么简单 机器学习算法 - SVM中篇（算法解析）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-04T20:59:50+08:00">
+                2018-06-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          读完上篇文章，相信各位大家已经对SVM的数学理论基石有了一个完整的理解（如果还没理解SVM数学理论基础的可以参看上篇），那现在恭喜你，这篇文章所讲解的SVM的原理和实践你会觉得非常轻松。话不多说，先用一个案例来介绍SVM到底是什么，以及它能解决什么问题。
+###案例2018年维米天使正在选拔谁能登上
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/06/04/原理就是这么简单 机器学习算法 - SVM中篇（算法解析））/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://clouder.com/2018/05/01/原理就是这么简单 机器学习算法 - SVM上篇（理论基础）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="AndyClouder">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="云雾中的墨先生">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/01/原理就是这么简单 机器学习算法 - SVM上篇（理论基础）/" itemprop="url">原理就是这么简单 机器学习算法 - SVM上篇（理论基础）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-01T07:57:52+08:00">
+                2018-05-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          在学习SVM的时候，很多小伙伴总是觉得这个高大上的算法不好理解，学习的时候还有点印象，但是时间一长，又忘记了。随着学习进一步的理解我发现数学理论是理解SVM必不可少的要素。
+
+那需要什么数学理论才能将SVM算法理解的深刻到位呢？
+
+
+答案: 就是这些凸优化的知识（拉格朗日函数，对偶函数，KKT条件）
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/01/原理就是这么简单 机器学习算法 - SVM上篇（理论基础）/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
     </div>
   </div>
 
-  
-</aside>
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">AndyClouder</p>
+              <p class="site-description motion-element" itemprop="description">Makes more time</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
         
       </div>
-      <footer id="footer">
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">AndyClouder</span>
+
   
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 Clouder<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
+    
 
   </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
 </body>
 </html>

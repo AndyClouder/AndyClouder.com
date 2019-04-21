@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Deep Learning,Python,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Date: 11/22/2018 不做调包侠！之前我在某公开课上讲述了“不调包，仅用Python如何四步搭建神经网络”。我发现各位小伙伴们对原理的渴求非常强烈！说明大家在“不做调包侠”上非常重视，我也非常开心。这篇文章也是“原理就是这么简单”的系列文章之一，希望通过文章的方式将原理描述的更加丰满！帮助更多想学习深度学习的朋友！ 对比Sklearn中的线性回归学过机器学习的朋友都知道Sklearn是">
+<meta name="keywords" content="Deep Learning,Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="原理就是这么简单 用Python搭建神经网络">
+<meta property="og:url" content="http://clouder.com/2018/11/21/原理就是这么简单 用Python搭建神经网络/index.html">
+<meta property="og:site_name" content="云雾中的墨先生">
+<meta property="og:description" content="Date: 11/22/2018 不做调包侠！之前我在某公开课上讲述了“不调包，仅用Python如何四步搭建神经网络”。我发现各位小伙伴们对原理的渴求非常强烈！说明大家在“不做调包侠”上非常重视，我也非常开心。这篇文章也是“原理就是这么简单”的系列文章之一，希望通过文章的方式将原理描述的更加丰满！帮助更多想学习深度学习的朋友！ 对比Sklearn中的线性回归学过机器学习的朋友都知道Sklearn是">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-2a136d62894376ba.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-392eecf9f4824882.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-85a0a16b4d2bbe09.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-30bebd873676636a.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-28dd37db81d80296.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-8662adb9ed0bbf10.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-df91f1afe62170ac.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-04-21T00:11:57.738Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="原理就是这么简单 用Python搭建神经网络">
+<meta name="twitter:description" content="Date: 11/22/2018 不做调包侠！之前我在某公开课上讲述了“不调包，仅用Python如何四步搭建神经网络”。我发现各位小伙伴们对原理的渴求非常强烈！说明大家在“不做调包侠”上非常重视，我也非常开心。这篇文章也是“原理就是这么简单”的系列文章之一，希望通过文章的方式将原理描述的更加丰满！帮助更多想学习深度学习的朋友！ 对比Sklearn中的线性回归学过机器学习的朋友都知道Sklearn是">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/4861716-2a136d62894376ba.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://clouder.com/2018/11/21/原理就是这么简单 用Python搭建神经网络/">
+
+
+
+
+
+  <title>原理就是这么简单 用Python搭建神经网络 | 云雾中的墨先生</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">云雾中的墨先生</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">只想告诉你最简单的原理</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://clouder.com/2018/11/21/原理就是这么简单 用Python搭建神经网络/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="AndyClouder">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="云雾中的墨先生">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">原理就是这么简单 用Python搭建神经网络</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-21T21:59:59+08:00">
+                2018-11-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Date: 11/22/2018</p>
+<h2 id="不做调包侠！"><a href="#不做调包侠！" class="headerlink" title="不做调包侠！"></a>不做调包侠！</h2><p>之前我在某公开课上讲述了“不调包，仅用Python如何四步搭建神经网络”。<br>我发现各位小伙伴们对原理的渴求非常强烈！说明大家在“不做调包侠”上非常重视，我也非常开心。<br>这篇文章也是“原理就是这么简单”的系列文章之一，希望通过文章的方式将原理描述的更加丰满！帮助更多想学习深度学习的朋友！</p>
+<h2 id="对比Sklearn中的线性回归"><a href="#对比Sklearn中的线性回归" class="headerlink" title="对比Sklearn中的线性回归"></a>对比Sklearn中的线性回归</h2><p>学过机器学习的朋友都知道Sklearn是非常重要的工具包，很多复杂的机器学习模型也许用sklearn几行代码就能搞定，<br>举个例子比如线性回归，我们可以构建如下的线性回归对象训练和预测一气呵成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">linreg = LinearRegression()</span><br><span class="line">linreg.fit(train_features,train_targets) </span><br><span class="line">y_pred = linreg.predict(val_features)</span><br></pre></td></tr></table></figure></p>
+<p>发现使用非常简单，仅仅三行代码就能得到线性回归的结果（<strong>y_pred</strong>）<br>如果使用的案例是波士顿房价的数据集，那相应可以得到如下的预测结果：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-2a136d62894376ba.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Boston_Housing_predict.PNG"></p>
+<p>预测结果还不错。</p>
+<p>那如何构建一个类似Skleran.LinearRegression 的神经网络工具包呢？<br>接下来我就要将数学原理转换为代码。</p>
+<p>##Python搭建神经网络完成回归工作<br>终于到了本篇文章的重点，我会用数学原理和python代码详细讲解如何构建如下结构的神经网络：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-392eecf9f4824882.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nn.png"></p>
+<h2 id="介绍网络"><a href="#介绍网络" class="headerlink" title="介绍网络"></a>介绍网络</h2><p>大家可以看到这个神经网络分别有</p>
+<ul>
+<li>Input Layer</li>
+<li>Hidden Layer</li>
+<li>Output Layer</li>
+</ul>
+<p>这个是这个网络的基本结构，在进行下面的讲解之前需要在这里<strong>声明</strong>一下， </p>
+<blockquote>
+<p>既然是Layer 层 , 都会有这个层本身输入和输出，就好比一个净水过滤器，传进去的是脏水，传出来的是净水，那么神经网络的各个层也有这个性质。</p>
+</blockquote>
+<blockquote>
+<p>1, Input Layer 值得注意的地方是Input Layer 只有输出，传入的就是数据特征，如果使用的是预测房价的案例传入的就是（面积，朝向，地段，etc..）。<br>公式中会表示成<strong>X</strong></p>
+</blockquote>
+<blockquote>
+<p>2, Hidden Layer 有输入和输出两个概念了，就好比净水器。那么针对Hidden Layer净水器的过滤网是什么呢？ 其实就是<strong>激活函数</strong>（这个后面我会详细讲解）。<br>公式中会表示成<strong>h_input</strong>/<strong>h_out</strong></p>
+</blockquote>
+<blockquote>
+<p>3, Output Layer 也有输入和输出两个概念，只不过这次我搭建的是处理回归模型的网络，所以其输入和输出是一样的值。<br>公式中会表示成<strong>O_input/O_out</strong></p>
+</blockquote>
+<blockquote>
+<p>4, 链接层与层之间的是权重矩阵。<br>公式中会表示成<strong>W_i_h/ W_h_o</strong></p>
+</blockquote>
+<h2 id="BP算法数学原理和代码实现"><a href="#BP算法数学原理和代码实现" class="headerlink" title="BP算法数学原理和代码实现"></a>BP算法数学原理和代码实现</h2><p>其实 BP 算法的全名为”Error BackPropagation 误差反向传播”<br>但是其实BP算法的流程分为三个部分：<br>一为前向传播求误差<br>二为反向传播求梯度<br>三为通过梯度更新权重</p>
+<p>可能大家会对这三个部分晦涩难懂，其实我举个不恰当的例子你就能明白。<br>比如小明想去学习自由泳，他没有教练，不过好在有一个泳池他可以无限次的在里面尝试。<br>然后小明开始自学：</p>
+<ul>
+<li>步骤一，他脑子里想了A,B,C 三套动作准备在水中尝试，然后直接跳入水中瞎扑腾，看看到底是落水还是前进。</li>
+<li>步骤二，在水中他认真体会各种动作对于游泳的影响，发现使用C动作他还能扑腾一会，但是使用A，B动作，瞬间落水。</li>
+<li>步骤三，他上了岸，然后仔细总结刚才的C动作并加以改进，并且尝试去除自己的A，B动作。</li>
+</ul>
+<p>然后再次跳入水中。</p>
+<p>经过n 次的刻苦训练，小明练成了自由泳。</p>
+<p>其实这个流程就好比BP算法的流程。<br>步骤一就像前向传播，带着一些不靠谱的动作相当于初始权重矩阵<br>步骤二就像于反向传播，仔细体验哪个动作更加有效这相当于求权重的梯度<br>步骤三就像于梯度更新，更新自己的动作相当于更新权重矩阵</p>
+<p>下面我就要仔细用数学推导BP算法：<br>首先来学习一下数学基础：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-85a0a16b4d2bbe09.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="base.JPG"><br>Loss function 不用过多解释，了解机器学习的都知道这是MSE。<br>Sigmoid 就是刚才提到的过滤器也就是激活函数。</p>
+<p>前向传播：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-30bebd873676636a.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="前向传播.JPG"><br>代码如下：<br><em>代码中final_outputs 就是 O_out</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hidden_inputs = np.dot(X,self.input_hidden_weight)</span><br><span class="line">hidden_outputs = self.sigmoid(hidden_inputs)</span><br><span class="line">final_inputs = np.dot(hidden_outputs,self.hidden_output_weight)</span><br><span class="line">final_outputs = final_inputs</span><br></pre></td></tr></table></figure></p>
+<p>反向传播：<br>基于链式求导法则如下：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-28dd37db81d80296.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="反向传播.JPG"><br>关注O_input_error_term, h_input_error_term<br>因为这两项是关于权重矩阵W_i_h和W_h_o的函数。<br>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">final_output_error = y-final_outputs</span><br><span class="line">final_input_error_term = final_output_error*1</span><br><span class="line">hidden_output_error = np.dot(self.hidden_output_weight, final_input_error_term)</span><br><span class="line">hidden_input_error_term = hidden_output_error*hidden_outputs*(1-hidden_outputs)</span><br></pre></td></tr></table></figure></p>
+<p>梯度更新：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-8662adb9ed0bbf10.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="梯度更新.JPG"><br>代码如下：<br><em>代码中update_x_x 就是权重的梯度</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">update_i_h += np.dot(X_item,hidden_error_term.T)</span><br><span class="line">update_h_o += np.dot(hidden_outputs,output_error_term.T)</span><br></pre></td></tr></table></figure></p>
+<p>到了这里你已经学会了BP算法的精华了，但是如果想构造一个可以使用的神经网络还差一点点，是什么呢？<br>下面我会根据代码给你讲解。</p>
+<h2 id="Python-四步构造NeuralNetwork"><a href="#Python-四步构造NeuralNetwork" class="headerlink" title="Python 四步构造NeuralNetwork"></a>Python 四步构造NeuralNetwork</h2><p>想要构造一个类似Sklearn的方便使用的神经网络，我们需要四步</p>
+<p>Step1:<br>初始化：</p>
+<ul>
+<li>构造sigmoid 激活函数</li>
+<li>构造mse 用于求损失</li>
+<li>设置学习率，以及网络节点</li>
+<li>初始化两个权重矩阵</li>
+</ul>
+<p>Step2</p>
+<ul>
+<li>实现前向传播</li>
+<li>实现predect函数基于前向传播</li>
+</ul>
+<p>Step3</p>
+<ul>
+<li>实现反向传播</li>
+</ul>
+<p>整个代码如下：<br>···<br>class NeuralNetwork(object):<br>    def <strong>init</strong>(self, input_units, hidden_units = 4, output_units = 1, learning_rate = 0.01):</p>
+<pre><code>    self.sigmoid = lambda x : 1/(1+np.exp(-x))
+    self.mean_squared_error = lambda y_true, y_pred: np.mean((y_true-y_pred)**2)
+
+    self.input_units = input_units
+    self.hidden_units = hidden_units
+    self.output_units = output_units
+
+    self.learning_rate = learning_rate
+
+    np.random.seed(1119)
+
+    self.input_hidden_weight = np.random.randn(self.input_units,self.hidden_units)
+
+    self.hidden_output_weight = np.random.randn(self.hidden_units,self.output_units)
+
+def __forward__(self, X):
+    &apos;&apos;&apos; forward pass through the neural network with X 
+
+        Arguments
+        ---------
+        X: 2D array
+        features
+
+        Returns
+        -------
+        hidden_outputs: 1D array 
+        final_outputs: 1D array 
+
+    &apos;&apos;&apos;
+    hidden_inputs = np.dot(X,self.input_hidden_weight)
+
+    hidden_outputs = self.sigmoid(hidden_inputs)
+
+    final_inputs = np.dot(hidden_outputs,self.hidden_output_weight)
+
+    final_outputs = final_inputs
+
+    return hidden_outputs,final_outputs
+
+def __backward__(self, y, hidden_outputs, final_outputs):
+    &apos;&apos;&apos; backward pass through the neural network with X 
+
+        Arguments
+        ---------
+        X: 2D array
+        features
+
+        Returns
+        -------
+        hidden_input_error_term: 1D array 
+        final_input_error_term: 1D array 
+
+    &apos;&apos;&apos;
+    final_output_error = y-final_outputs
+
+    final_input_error_term = final_output_error*1
+
+    hidden_output_error = np.dot(self.hidden_output_weight, final_input_error_term)
+
+    hidden_input_error_term = hidden_output_error*hidden_outputs*(1-hidden_outputs)
+
+    return hidden_input_error_term,final_input_error_term
+
+def fit(self, X, y):
+    &apos;&apos;&apos; fit(X, y) method of NeuralNetwork
+
+        Parameters
+        ----------
+        X : 2D array
+        Training data
+
+        y : 1D array
+        Target values
+
+        Returns
+        -------
+        void
+
+    &apos;&apos;&apos;
+    n_records = X.shape[0]
+    for X_item, y_item in zip(X, y):
+        hidden_outputs, final_outputs = self.__forward__(X_item)
+        hidden_error_term, output_error_term = self.__backward__(y_item,hidden_outputs,final_outputs)
+        update_i_h += np.dot(X_item,hidden_error_term.T)
+        update_h_o += np.dot(hidden_outputs,output_error_term.T)
+
+    self.hidden_output_weight += self.learning_rate * (update_h_o / n_records)
+    self.input_hidden_weight += self.learning_rate * (update_i_h / n_records)
+
+
+def predict(self, X):
+    &apos;&apos;&apos; predict(X) method of NeuralNetwork
+
+        Arguments
+        ---------
+        X: 2D array
+        features
+
+        Returns
+        -------
+        outputs: 1D array 
+        predicted values
+    &apos;&apos;&apos;
+    hidden_outputs, final_outputs = self.__forward__(X)
+
+    return final_outputs
+</code></pre><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>对比了一下自己构造的神经网络和线性回归，预测波士顿房价的案例可以得到如下结果：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-df91f1afe62170ac.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="线性回归VS神经网络.PNG"></p>
+<p>可以明显看出神经网络的性能更好一些。</p>
+<p>并且神经网络可以做回归和分类两种任务，只要将Output layer 加一个Sigmoid 即可实现二分类，加一个Softmax 又可以实现多分类（可参考另一篇  原理就是这么简单 Softmax 分类）</p>
+<p>理论上来说神经网络，有足够都的数据有足够多的层数和节点数，可以拟合任何函数，这也是神经网络的强大之处。<br>也是如今的AI 时代深度学习作为爆发技术的主要原因。</p>
+<p><strong>你也可以自己尝试实现，如果有问题，欢迎给我留言</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/20/原理就是这么简单 Softmax 分类/" rel="next" title="原理就是这么简单- Softmax">
+                <i class="fa fa-chevron-left"></i> 原理就是这么简单- Softmax
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">AndyClouder</p>
+              <p class="site-description motion-element" itemprop="description">Makes more time</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#不做调包侠！"><span class="nav-number">1.</span> <span class="nav-text">不做调包侠！</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对比Sklearn中的线性回归"><span class="nav-number">2.</span> <span class="nav-text">对比Sklearn中的线性回归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍网络"><span class="nav-number">3.</span> <span class="nav-text">介绍网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BP算法数学原理和代码实现"><span class="nav-number">4.</span> <span class="nav-text">BP算法数学原理和代码实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-四步构造NeuralNetwork"><span class="nav-number">5.</span> <span class="nav-text">Python 四步构造NeuralNetwork</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.1.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">AndyClouder</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Machine Learning,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="读完上篇文章，相信各位大家已经对SVM的数学理论基石有了一个完整的理解（如果还没理解SVM数学理论基础的可以参看上篇），那现在恭喜你，这篇文章所讲解的SVM的原理和实践你会觉得非常轻松。话不多说，先用一个案例来介绍SVM到底是什么，以及它能解决什么问题。 ###案例2018年维米天使正在选拔谁能登上维米的舞台！这天来了很多出色的模特。但是这次选拔的标准有两个颜值（满分10分） 和 身高。有一天小明">
+<meta name="keywords" content="Machine Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="原理就是这么简单 机器学习算法 - SVM中篇（算法解析）">
+<meta property="og:url" content="http://clouder.com/2018/06/04/原理就是这么简单 机器学习算法 - SVM中篇（算法解析））/index.html">
+<meta property="og:site_name" content="云雾中的墨先生">
+<meta property="og:description" content="读完上篇文章，相信各位大家已经对SVM的数学理论基石有了一个完整的理解（如果还没理解SVM数学理论基础的可以参看上篇），那现在恭喜你，这篇文章所讲解的SVM的原理和实践你会觉得非常轻松。话不多说，先用一个案例来介绍SVM到底是什么，以及它能解决什么问题。 ###案例2018年维米天使正在选拔谁能登上维米的舞台！这天来了很多出色的模特。但是这次选拔的标准有两个颜值（满分10分） 和 身高。有一天小明">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4861716-8630dfaf916829d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1080/q/50">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-020587fb452576c3.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-33e713833d090c47.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-36b3e2455ff73f4c.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-06f6b1bfb177daf7.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-a85a2cc3c926cab3.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-d9ec37ab84adfca6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-9798fe8c949d9403.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-a3dfeb50213c2a99.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-d9d40c5704573cd6.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-46a9fbd8030df81a.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-50d9497bb6d0ba10.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-517bdfaf3a8d4c89.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-eec067f37698ce26.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-1f398c86bcf1099a.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-f7adb508a25e9b1f.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-bf098a89b12ba988.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-a0bb2e4b1badb2d6.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-2ff2e253f8a29ed0.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-4d6b7f5180d2240f.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-04-21T00:13:05.256Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="原理就是这么简单 机器学习算法 - SVM中篇（算法解析）">
+<meta name="twitter:description" content="读完上篇文章，相信各位大家已经对SVM的数学理论基石有了一个完整的理解（如果还没理解SVM数学理论基础的可以参看上篇），那现在恭喜你，这篇文章所讲解的SVM的原理和实践你会觉得非常轻松。话不多说，先用一个案例来介绍SVM到底是什么，以及它能解决什么问题。 ###案例2018年维米天使正在选拔谁能登上维米的舞台！这天来了很多出色的模特。但是这次选拔的标准有两个颜值（满分10分） 和 身高。有一天小明">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4861716-8630dfaf916829d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1080/q/50">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://clouder.com/2018/06/04/原理就是这么简单 机器学习算法 - SVM中篇（算法解析））/">
+
+
+
+
+
+  <title>原理就是这么简单 机器学习算法 - SVM中篇（算法解析） | 云雾中的墨先生</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">云雾中的墨先生</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">只想告诉你最简单的原理</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://clouder.com/2018/06/04/原理就是这么简单 机器学习算法 - SVM中篇（算法解析））/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="AndyClouder">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="云雾中的墨先生">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">原理就是这么简单 机器学习算法 - SVM中篇（算法解析）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-04T20:59:50+08:00">
+                2018-06-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>读完上篇文章，相信各位大家已经对SVM的数学理论基石有了一个完整的理解（如果还没理解SVM数学理论基础的可以参看上篇），那现在恭喜你，这篇文章所讲解的SVM的原理和实践你会觉得非常轻松。<br>话不多说，先用一个案例来介绍SVM到底是什么，以及它能解决什么问题。</p>
+<p>###案例<br>2018年维米天使正在选拔谁能登上维米的舞台！<br><img src="http://upload-images.jianshu.io/upload_images/4861716-8630dfaf916829d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1080/q/50" alt="图片发自简书App"><br>这天来了很多出色的模特。<br>但是这次选拔的标准有两个<strong>颜值（满分10分）</strong> 和 <strong>身高</strong>。<br>有一天小明来代班当面试官，并决定哪些模特可以登上维米的舞台。<br>小明看到这么多的美丽的模特心想“这不是在鸡蛋里挑骨头吗”？<br>但是小明又不能让所有来应征的模特都登上舞台，那么小明该怎么办呢？</p>
+<p>小明突然想到2017年同样举办过一场非常成功的维米天使，这时候他想通过17年天使的颜值，身高数据来评选18年的天使。<br>这真是个好主意，首先把17年天使的各个数据输入到计算机里来看一看，如下图：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-020587fb452576c3.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="model.PNG"></p>
+<p>图中有100个维米天使的数据对应着100个点，其中横轴为身高，纵轴为颜值。<br><strong>蓝色</strong>的代表是去年登上舞台的选手，<strong>棕色</strong>的代表没有被选上的选手。</p>
+<p>这时候可以想到的很好的办法是在图中画条线来区分两块数据。可以这么画：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-33e713833d090c47.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.PNG"></p>
+<p>还可以这么画：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-36b3e2455ff73f4c.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.PNG"></p>
+<p>可是图中红色的线和蓝色的线都能很好的分开这两批天使，那到底改用哪个呢？</p>
+<p>如果可以画一条线<strong>能够把两边的数据尽可能的分开</strong>，那不就是说明这条线画的更好嘛。有可能如下图：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-06f6b1bfb177daf7.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.PNG"></p>
+<p>嗯哼！这条线小明感觉到很满意，一看就是维米资深面试官画的线，运用于2018年的维米选拔效果肯定不错。</p>
+<p>在这个案例中，能用画线的方式来区分两批天使数据，称之为<strong>线性可分</strong>， 而这条线被称为<strong>超平面</strong>，<br>而如何从众多可以区分两批模特的线中找到最中间或者最优的这条线的算法，被称为<strong>SVM算法</strong>。<br>SVM 算法有如下两个重点：</p>
+<blockquote>
+<p>判断数据是否线性可分<br>找到最优超平面</p>
+</blockquote>
+<p>接下来，我们具体看看SVM到底用数学语言是怎么表述并解决的吧</p>
+<h3 id="SVM原理"><a href="#SVM原理" class="headerlink" title="SVM原理"></a>SVM原理</h3><p>刚才为了找那条最优的超平面，我们有个原则，就是<strong>能够把两边的数据尽可能的分开</strong>，用数学语言来定义的话就是<strong>让这条线离两边的数据的最小距离都尽可能的大</strong>。</p>
+<p>请看下面这张图：<br>灰色的是超平面，黑点和红点是一个正样本点和一个负样本点。<br><img src="https://upload-images.jianshu.io/upload_images/4861716-a85a2cc3c926cab3.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.PNG"></p>
+<p>此图中点到超平面的距离是<br><img src="https://upload-images.jianshu.io/upload_images/4861716-d9ec37ab84adfca6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5.png"></p>
+<p>（数学公式，直接使用就可以了，证明略）<br>但是公式这里有个绝对值，这让我们计算的时候总是不那么方便，如何去掉这个绝对值呢？<br>因为当分子部分没有绝对值的话，是有正负号的，当样本属于正样本（e.g. 黑点）那么：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-9798fe8c949d9403.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6.PNG"></p>
+<p>反之（e.g.红点）<br><img src="https://upload-images.jianshu.io/upload_images/4861716-a3dfeb50213c2a99.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="7.PNG"></p>
+<p>然而yi的取值为（正例+1，负例-1），所以yi与上式相乘总是一个大于等于0的数字，如下：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-d9d40c5704573cd6.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8.PNG"></p>
+<p>这个比较通用的距离公式被称为<strong>几何间隔(Geometric margin)</strong></p>
+<p>这样原问题就被转化为了找到 w,b 使得最小的几何间隔最大化 ，又因为最小的几何间隔和 1/ ||w|| 无关所以放到min的外面如下：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-46a9fbd8030df81a.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="9.PNG"></p>
+<h3 id="简化目标函数"><a href="#简化目标函数" class="headerlink" title="简化目标函数"></a>简化目标函数</h3><p>这个目标函数还是有点复杂，因为式子中min的部分对于不同的超平面 xi,yi 都是不定的量，这会让我们的优化变得繁琐，所以我们要想办法进行简化。<br>在简化之前 我们先来看看这个式子：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-50d9497bb6d0ba10.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="10.PNG"></p>
+<p>这个式子所代表的含义被称为<strong>函数间隔(Function margin)</strong><br>首先我们知道函数间隔永远都是大于0的，这其实就是一个约束。<br>而对同一个超平面，我们可以通过比例缩放w和b，函数间隔也会同比例变化。举个例子，对于一个成功划分正负实例的超平面（并非最优），如果该平面固定，但是通过缩放w和b， 可以让函数间隔取到任意大的值。对一个超平面，函数间隔与∥w∥的比值保持不变，也就是说几何间隔在同一个超平面下是固定的。而我们优化的目标是最大化几何间隔去找相应的超平面，所以我们可以缩放w,b使得距离最近的点的函数间隔为1（其他的点当然大于等于1），然后最小化∥w∥（与最大化1/||w||等价）达到最大化几何间隔的目的。</p>
+<p>这样我们就清晰的看到其实SVM是一个有约束的优化问题，它的基本型为：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-517bdfaf3a8d4c89.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="svm.PNG"></p>
+<p>有了基本型，我们可以利用上篇文章中的对偶方式进行求解，很多人之所以不理解SVM其实就是不理解这些数学概念</p>
+<p>###求解SVM<br>求解SVM自然利用对偶问题的知识</p>
+<blockquote>
+<p>SVM对偶问题</p>
+<ul>
+<li>拉格朗日函数：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-eec067f37698ce26.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="11.PNG"></li>
+</ul>
+</blockquote>
+<ul>
+<li>对偶问题<br><img src="https://upload-images.jianshu.io/upload_images/4861716-1f398c86bcf1099a.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="12.PNG"></li>
+</ul>
+<p>令L（w,b,<strong>入</strong>）对w,b的偏导等于0，可得：<br>其中* 代表最优解</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/4861716-f7adb508a25e9b1f.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="13.PNG"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/4861716-bf098a89b12ba988.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="14.PNG"></p>
+<p>代入原拉格朗日函数可得对偶问题为：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-a0bb2e4b1badb2d6.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="15.PNG"></p>
+<p>根据KKT条件可得：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-2ff2e253f8a29ed0.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="16.PNG"></p>
+<p>所以带入w<em> 可得b</em><br><img src="https://upload-images.jianshu.io/upload_images/4861716-4d6b7f5180d2240f.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="18.PNG"></p>
+<p>现在我们就将整个SVM的求解过程解释清楚了。<br>但是为什么我们非要用对偶来解决原来的问题呢，因为在数学家的研究下已经研究出来了一种名叫SMO的算法可以非常高效率的解决这样的问题，可能在高维多数据的情况下也有着最佳的性能。有兴趣的小伙伴可以去查阅wiki 关于SMO算法的求解过程。</p>
+<p>但是作为理解SVM的算法到这里就已经足够了。<br>接下来我会用SVM算法来实现一些数据线性可分的案例，以及处理线性不可分的案例和它的拓展理论。请看下篇文章。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/01/原理就是这么简单 机器学习算法 - SVM上篇（理论基础）/" rel="next" title="原理就是这么简单 机器学习算法 - SVM上篇（理论基础）">
+                <i class="fa fa-chevron-left"></i> 原理就是这么简单 机器学习算法 - SVM上篇（理论基础）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/20/原理就是这么简单 Softmax 分类/" rel="prev" title="原理就是这么简单- Softmax">
+                原理就是这么简单- Softmax <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">AndyClouder</p>
+              <p class="site-description motion-element" itemprop="description">Makes more time</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#SVM原理"><span class="nav-number">1.</span> <span class="nav-text">SVM原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简化目标函数"><span class="nav-number">2.</span> <span class="nav-text">简化目标函数</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">AndyClouder</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Machine Learning,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在学习SVM的时候，很多小伙伴总是觉得这个高大上的算法不好理解，学习的时候还有点印象，但是时间一长，又忘记了。随着学习进一步的理解我发现数学理论是理解SVM必不可少的要素。  那需要什么数学理论才能将SVM算法理解的深刻到位呢？   答案: 就是这些凸优化的知识（拉格朗日函数，对偶函数，KKT条件）  很多小伙伴说看见数学公式和这些抽象的概念推导就感觉到头痛。 ###如果你是这样的小伙伴那这篇文章">
+<meta name="keywords" content="Machine Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="原理就是这么简单 机器学习算法 - SVM上篇（理论基础）">
+<meta property="og:url" content="http://clouder.com/2018/05/01/原理就是这么简单 机器学习算法 - SVM上篇（理论基础）/index.html">
+<meta property="og:site_name" content="云雾中的墨先生">
+<meta property="og:description" content="在学习SVM的时候，很多小伙伴总是觉得这个高大上的算法不好理解，学习的时候还有点印象，但是时间一长，又忘记了。随着学习进一步的理解我发现数学理论是理解SVM必不可少的要素。  那需要什么数学理论才能将SVM算法理解的深刻到位呢？   答案: 就是这些凸优化的知识（拉格朗日函数，对偶函数，KKT条件）  很多小伙伴说看见数学公式和这些抽象的概念推导就感觉到头痛。 ###如果你是这样的小伙伴那这篇文章">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-c7ffd8c4904bf6cd.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-c7aeca036633ba89.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-e249d200f7c0800c.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-b5b052b980c41ab3.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-8e92fb19958aff91.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4861716-0af52414b32af9ba.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-04-21T00:09:38.168Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="原理就是这么简单 机器学习算法 - SVM上篇（理论基础）">
+<meta name="twitter:description" content="在学习SVM的时候，很多小伙伴总是觉得这个高大上的算法不好理解，学习的时候还有点印象，但是时间一长，又忘记了。随着学习进一步的理解我发现数学理论是理解SVM必不可少的要素。  那需要什么数学理论才能将SVM算法理解的深刻到位呢？   答案: 就是这些凸优化的知识（拉格朗日函数，对偶函数，KKT条件）  很多小伙伴说看见数学公式和这些抽象的概念推导就感觉到头痛。 ###如果你是这样的小伙伴那这篇文章">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/4861716-c7ffd8c4904bf6cd.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://clouder.com/2018/05/01/原理就是这么简单 机器学习算法 - SVM上篇（理论基础）/">
+
+
+
+
+
+  <title>原理就是这么简单 机器学习算法 - SVM上篇（理论基础） | 云雾中的墨先生</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">云雾中的墨先生</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">只想告诉你最简单的原理</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://clouder.com/2018/05/01/原理就是这么简单 机器学习算法 - SVM上篇（理论基础）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="AndyClouder">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="云雾中的墨先生">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">原理就是这么简单 机器学习算法 - SVM上篇（理论基础）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-01T07:57:52+08:00">
+                2018-05-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在学习<strong>SVM</strong>的时候，很多小伙伴总是觉得这个高大上的算法不好理解，学习的时候还有点印象，但是时间一长，又忘记了。<br>随着学习进一步的理解我发现数学理论是理解SVM必不可少的要素。</p>
+<blockquote>
+<p>那需要什么数学理论才能将SVM算法理解的深刻到位呢？</p>
+</blockquote>
+<blockquote>
+<p>答案: 就是这些凸优化的知识（<strong>拉格朗日函数，对偶函数，KKT条件</strong>）</p>
+</blockquote>
+<p>很多小伙伴说看见数学公式和这些抽象的概念推导就感觉到头痛。</p>
+<p>###如果你是这样的小伙伴那这篇文章就很适合你。</p>
+<p>接下来我会用很直观的角度来描述SVM的必备数学知识：</p>
+<blockquote>
+<p><strong>拉格朗日函数，对偶函数，KKT条件</strong></p>
+</blockquote>
+<p>#拉格朗日函数<br>首先 我们都知道无约束的优化问题（例如：线性回归），我们可以用梯度下降法和拟牛顿法等方法来进行求解，这很好理解，但是针对有约束的优化问题（例如：SVM），我们该怎么办呢？</p>
+<p>聪明的小伙伴可能会想到能不能<strong>把有约束优化问题转化成无约束的优化</strong>问题呢？</p>
+<p>答案是肯定的，那么就要用到我们要介绍的第一个利器“拉格朗日函数”。下面有个例子：<br> 我们有如下的优化目标：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-c7ffd8c4904bf6cd.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.JPG"></p>
+<p>其中 <strong>subject to</strong> 表示约束条件， 通常来讲约束条件分为 <em>不等式约束条件</em> 和 <em>等式约束条件</em>。</p>
+<blockquote>
+<p>我们第一个主角拉格朗日函数就是将这两种约束条件和目标函数放入同一个函数中，那么我们只需要关注这个新的函数就可以了。(是不是觉得拉格朗日函数没那么难理解了呢？)</p>
+</blockquote>
+<p>下面就是拉格朗日函数：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-c7aeca036633ba89.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.PNG"></p>
+<p>fi(x) 为不等式约束 就是上面的h1(x)<br>vi(x) 为等式约束 就是上面的h2(x)</p>
+<p><em>入</em> 和 v 被称为<em>对偶变量</em>（只是个名字没什么大不了）</p>
+<ul>
+<li><p>其中 <em>入</em>&gt;=0， 这个需要好好理解一下， 因为fi(x) 需要&lt;=0 所以如果当fi(x)不满足约束条件的时候，也就是fi(x)&gt;0时 <em>入</em> 要进一步惩罚使得这一项成为一个更大的数 所以 <em>入</em>i fi(x) 要保证和 fi(x) 保证同号。<br>从而得到  <em>入</em>i * fi(x) &lt;= 0 </p>
+</li>
+<li><p>其中 hi(x)= 0， 因为是等式约束的部分，所以都是等于0的<br>所以 vi * hi(x) = 0  </p>
+</li>
+</ul>
+<p><strong>那么为了使得 L（x, <em>入</em>，v）= f0(x)，我们就可以不关心约束项的部分了。</strong><br><strong>其实就是让约束等于0。</strong></p>
+<p>那我们该怎么办呢？<br>请注意 ： 入<em>i fi(x) &lt;= 0 , vi </em> hi(x) = 0  , 那他们两个和的最大值不就是0嘛！<br>也就是取一个max即可，即如下：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-e249d200f7c0800c.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.PNG"></p>
+<p>这样我们原来的优化问题就变成了：</p>
+<h4 id="min-max-L-x-入，v"><a href="#min-max-L-x-入，v" class="headerlink" title="min max(L(x, 入，v))"></a>min max(L(x, <em>入</em>，v))</h4><p>那变型成这样约束为0的式子之后该怎么办呢？<br>接下来就是我们要介绍的对偶理论可以很好的解决这个问题。</p>
+<h1 id="对偶"><a href="#对偶" class="headerlink" title="对偶"></a>对偶</h1><p>首先我先给出对偶函数的定义：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-b5b052b980c41ab3.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.PNG"></p>
+<p>我们可以看到 对偶函数只不过就是把拉格朗日函数以（<em>入</em>，v）为变量，取得使其最小的函数嘛，<strong>请注意这时候变量不是x哦！</strong></p>
+<p>我们再来仔细看看这个函数，因为此时变量是（<em>入</em>，v），<br>我们也可以有如下定义 </p>
+<ul>
+<li>Z = [<em>入</em>，v] ( 变量 )</li>
+<li>F = [f(x),v(x)] （系数）</li>
+<li>B = f0(x) （偏置）</li>
+</ul>
+<p>那么原来的g函数也就变成了 g(<em>入</em>，v) = min ( F.T <em> Z + B ), 其中 **f(Z) = F.T </em> Z + B**是一个仿射函数。</p>
+<p>这样很清晰的可以得出这个g 是 f(Z)的逐点下确界 （也就是把每项取最小）。</p>
+<p>并且我们知道有如下结论：<br>结论一，所有仿射函数都是即凸且凹函数（Boyd 的 《Convex Optimization》）<br>结论二，凹函数的逐点下确界还是凹函数（Boyd 的 《Convex Optimization》）</p>
+<p>那么可以得出对偶函数是一个凹函数，那么它的局部最大解，即是全局最大解，直观的认识如下图：<br><img src="https://upload-images.jianshu.io/upload_images/4861716-8e92fb19958aff91.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5.png"></p>
+<p>这个结论就非常的重要，不论原函数有多么复杂，有多么的难优化，但是它的对偶函数总是一个凹函数，总能找到最大的点。<br>到这里我们已经将对偶函数解释清楚了。</p>
+<p>那么问题来了：</p>
+<p>####对偶函数又是怎么运用而来获得原函数的最优解的呢？<br>首先我们重新看一下之前拉格朗日函数的形式：</p>
+<h4 id="min-max-L-x-入，v-1"><a href="#min-max-L-x-入，v-1" class="headerlink" title="min max(L(x, 入，v))"></a>min max(L(x, <em>入</em>，v))</h4><p>其中max(L(x, <em>入</em>，v))  = f0(x). 所以拉格朗日函数的最优解必然是<br>Optimal = min f0(x).</p>
+<p>刚才我们又得到对偶函数<br>其中:</p>
+<ul>
+<li><em>入</em>i * fi(x) &lt;= 0 </li>
+<li>hi(x)= 0</li>
+<li>vi * hi(x) = 0 </li>
+</ul>
+<p>那么 max g(<em>入</em>，v) &lt;= f0(x)</p>
+<blockquote>
+<p><strong>那么也就是说对偶函数的最大值小于等于原拉格朗日函数的最小值</strong></p>
+</blockquote>
+<blockquote>
+<p>那么如果对偶函数的最大值恰好等于拉格朗日函数的最小值， 那么用对偶函数来解原问题就会变得很简单。（<strong>此时被称为强对偶</strong>）</p>
+</blockquote>
+<p>怎么才能得到强对偶呢？接下来就是我们要讲的KKT条件了。</p>
+<h1 id="KKT-条件"><a href="#KKT-条件" class="headerlink" title="KKT 条件"></a>KKT 条件</h1><p>我们现在已经知道了 KKT 条件其实就是得到强对偶的充分必要条件，那它具体都是些什么条件呢？</p>
+<p>我们重新看一下刚才的对偶函数 g(<em>入</em>，v)<br><img src="https://upload-images.jianshu.io/upload_images/4861716-0af52414b32af9ba.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.PNG"><br>其中:</p>
+<ul>
+<li><em>入</em>i * fi(x) &lt;= 0 </li>
+<li>hi(x)= 0</li>
+<li>vi * hi(x) = 0</li>
+</ul>
+<p>若要取得他的最大值。</p>
+<blockquote>
+<p> 最重要的一条： 让 <em>入</em>i * fi(x) 这一项等于0  </p>
+</blockquote>
+<p>若x* 是取得最优的x 那么KKT条件如下：</p>
+<blockquote>
+<p>1 - fi(x<em>) &lt;=0<br>2 - hi(x</em>) = 0<br>3 - <em>入</em>i &gt;= 0<br><em>前三条很简单之前已经讲解过</em></p>
+<p>4 -  入<em>i </em> fi(x) = 0<br><em>第四条就是最重要的一条， 其中 </em>入<em>i 和 fi(x) 不全为 0</em></p>
+<p>5 -  (∂L(x,λ,μ))/∂x |(x=x<em> )=0
+</em>第五条就是让其梯度为0，因为极值点梯度为0*</p>
+</blockquote>
+<p>到现在我们已经一环扣一环的讲解了这三个理解SVM的必备数学推导。</p>
+<p>其实<strong>SVM就是一个满足KKT条件的有约束优化问题</strong>，如果具备了这些理论基础我相信记忆SVM会变得非常有层次。</p>
+<p>接下来的文章我会讲解到底SVM是怎么运用这些原理来进行分析的解决的，如果你已经了解了本篇文章的所有内容，相信SVM会变得非常简单！</p>
+<p>由于作者水平有限，如有错误请多多包涵，欢迎指正！非常感谢！</p>
+<ul>
+<li><p>Boyd, Stephen, and Lieven Vandenberghe. Convex optimization. Cambridge<br>university press, 2004.</p>
+</li>
+<li><p>李航，《统计学习方法》</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/04/原理就是这么简单 机器学习算法 - SVM中篇（算法解析））/" rel="prev" title="原理就是这么简单 机器学习算法 - SVM中篇（算法解析）">
+                原理就是这么简单 机器学习算法 - SVM中篇（算法解析） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">AndyClouder</p>
+              <p class="site-description motion-element" itemprop="description">Makes more time</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#min-max-L-x-入，v"><span class="nav-number">1.</span> <span class="nav-text">min max(L(x, 入，v))</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#对偶"><span class="nav-number"></span> <span class="nav-text">对偶</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#min-max-L-x-入，v-1"><span class="nav-number">1.</span> <span class="nav-text">min max(L(x, 入，v))</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#KKT-条件"><span class="nav-number"></span> <span class="nav-text">KKT 条件</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">AndyClouder</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
